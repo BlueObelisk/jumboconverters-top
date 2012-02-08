@@ -19,7 +19,7 @@ import org.xmlcml.euclid.Util;
 
 public class RegexProcessor {
 	private static final String REGEX_LIST = 
-		"org/xmlcml/cml/converters/format/regexList.xml";
+		"org/xmlcml/cml/converters/templates/output/regexList.xml";
 
 	private static final String NAME = "name";
 	
