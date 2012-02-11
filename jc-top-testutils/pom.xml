@@ -15,13 +15,24 @@
     <name>jc-top-testutils</name>
 
     <dependencies>
+            <dependency>
+                <groupId>com.hp.hpl.jena</groupId>
+                <artifactId>jena</artifactId>
+                <version>${jena.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hp.hpl.jena</groupId>
+                <artifactId>arq</artifactId>
+                <version>${jena.arq.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.hp.hpl.jena</groupId>
+                <artifactId>tdb</artifactId>
+                <version>${jena.tdb.version}</version>
+            </dependency>
         <dependency>
             <groupId>commons-io</groupId>
             <artifactId>commons-io</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>org.xml-cml</groupId>
-            <artifactId>jumbo-testutil</artifactId>
         </dependency>
         <dependency>
             <groupId>cml</groupId>
@@ -29,8 +40,9 @@
             <version>${project.version}</version>
         </dependency>
         <dependency>
-            <groupId>com.hp.hpl.jena</groupId>
-            <artifactId>jena</artifactId>
+            <groupId>org.xml-cml</groupId>
+            <artifactId>jumbo-testutil</artifactId>
+            <version>1.1-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>log4j</groupId>
