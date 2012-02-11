@@ -6,7 +6,7 @@
 
     <parent>
         <groupId>cml</groupId>
-        <artifactId>jumbo-converters</artifactId>
+        <artifactId>jumboconverters2-parent</artifactId>
         <version>0.3-SNAPSHOT</version>
     </parent>
 
@@ -31,10 +31,7 @@
         <dependency>
             <groupId>jtidy</groupId>
             <artifactId>jtidy</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
+            <version>${jtidy.version}</version>
         </dependency>
         <dependency>
             <groupId>xom</groupId>
@@ -53,6 +50,7 @@
         <dependency>
             <groupId>org.xml-cml</groupId>
             <artifactId>jumbo-testutil</artifactId>
+            <version>${jumbo-testutil.version}</version>
             <scope>test</scope>
         </dependency>
 

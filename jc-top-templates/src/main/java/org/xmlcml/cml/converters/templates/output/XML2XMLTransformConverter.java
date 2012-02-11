@@ -22,6 +22,10 @@ public class XML2XMLTransformConverter extends XML2XMLConverter {
 	}
 	
 	public XML2XMLTransformConverter(Element element) {
+		setTemplateElement(element);
+	}
+
+	protected void setTemplateElement(Element element) {
 		this.transformListElement = new TransformListElement(element);
 	}
 
