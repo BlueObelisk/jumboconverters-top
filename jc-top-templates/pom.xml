@@ -6,7 +6,7 @@
 
     <parent>
         <groupId>cml</groupId>
-        <artifactId>jumboconverters2-parent</artifactId>
+        <artifactId>jc-top</artifactId>
         <version>0.3-SNAPSHOT</version>
     </parent>
 
