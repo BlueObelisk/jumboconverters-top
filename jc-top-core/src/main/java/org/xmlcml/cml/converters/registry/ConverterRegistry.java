@@ -1,6 +1,7 @@
 package org.xmlcml.cml.converters.registry;
 
 import java.io.InputStream;
+
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,7 +22,7 @@ import org.xmlcml.cml.converters.MimeType;
  */
 public class ConverterRegistry {
 
-    public static final String CONVERTER_FILE = "META-INF/jumbo-converters";
+    public static final String META_INF_JUMBO = "META-INF/jumbo-converters";
 
     /** create singleton registry
      */
@@ -45,37 +46,38 @@ public class ConverterRegistry {
     }
 
 	private void createConvertersList() {
-        converterList = new ArrayList<Converter>();
-		try {
-        	ClassLoader ldr = ConverterRegistry.class.getClassLoader();
-
-            Enumeration<URL> e = ldr.getResources(CONVERTER_FILE);
-            for (URL url : Collections.list(e)) {
-                InputStream is = url.openStream();
-                try {
-                    for (String line : IOUtils.readLines(is)) {
-                        line = stripComments(line);
-                        String convertersName = line.trim();
-                        if (convertersName.length() > 0) {
-                            try {
-                            	System.out.println("Name: "+convertersName);
-                                Class<?> clazz = Class.forName(convertersName);
-                                AbstractConverterModule converterAndTypeLists = (AbstractConverterModule) clazz.newInstance();
-                                converterList.addAll(converterAndTypeLists.getConverterList());
-                            } catch (Exception ex) {
-                                System.err.println("Error loading converter: "+ex);
-                                ex.printStackTrace();
-                            }
-                        }
-                    }
-                } finally {
-                    IOUtils.closeQuietly(is);
-                }
-            }
-        } catch (Exception e) {
-            System.err.println("Error loading converter files");
-            e.printStackTrace();
-        }
+		if (converterList == null) {
+	        converterList = new ArrayList<Converter>();
+			try {
+	        	ClassLoader ldr = ConverterRegistry.class.getClassLoader();
+	            Enumeration<URL> e = ldr.getResources(META_INF_JUMBO);
+	            for (URL url : Collections.list(e)) {
+	                InputStream is = url.openStream();
+	                try {
+	                    for (String line : IOUtils.readLines(is)) {
+	                        line = stripComments(line);
+	                        String convertersName = line.trim();
+	                        if (convertersName.length() > 0) {
+	                            try {
+	                            	System.out.println("Meta-inf Name: "+convertersName);
+	                                Class<?> clazz = Class.forName(convertersName);
+	                                AbstractConverterModule converterAndTypeLists = (AbstractConverterModule) clazz.newInstance();
+	                                converterList.addAll(converterAndTypeLists.getConverterList());
+	                            } catch (Exception ex) {
+	                                System.err.println("Error loading converter: "+ex);
+	                                ex.printStackTrace();
+	                            }
+	                        }
+	                    }
+	                } finally {
+	                    IOUtils.closeQuietly(is);
+	                }
+	            }
+	        } catch (Exception e) {
+	            System.err.println("Error loading converter files");
+	            e.printStackTrace();
+	        }
+		}
 	}
 	
 	private void registerConverters() {
