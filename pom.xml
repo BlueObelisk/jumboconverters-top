@@ -27,6 +27,29 @@
         <module>jc-top-testutils</module>
     </modules>
 
+    <dependencies>
+		<dependency>
+			<groupId>${jumbo.groupId}</groupId>
+			<artifactId>jumbo</artifactId>
+		</dependency>
+        <dependency>
+            <groupId>xom</groupId>
+            <artifactId>xom</artifactId>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.xml-cml</groupId>
+            <artifactId>jumbo-testutil</artifactId>
+            <version>${jumbo-testutil.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+    </dependencies>
 
 </project>
 

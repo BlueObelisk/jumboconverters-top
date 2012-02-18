@@ -15,59 +15,50 @@
     <name>jc-top-testutils</name>
 
     <dependencies>
-            <dependency>
-                <groupId>com.hp.hpl.jena</groupId>
-                <artifactId>jena</artifactId>
-                <version>${jena.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.hp.hpl.jena</groupId>
-                <artifactId>arq</artifactId>
-                <version>${jena.arq.version}</version>
-            </dependency>
-            <dependency>
-                <groupId>com.hp.hpl.jena</groupId>
-                <artifactId>tdb</artifactId>
-                <version>${jena.tdb.version}</version>
-            </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cml</groupId>
-            <artifactId>jc-top-core</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.xml-cml</groupId>
-            <artifactId>jumbo-testutil</artifactId>
-            <version>1.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>xom</groupId>
-            <artifactId>xom</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>cml</groupId>
-            <artifactId>jc-top-templates</artifactId>
-            <version>0.3-SNAPSHOT</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <scope>test</scope>
-        </dependency>
+      <!--  needed for compare files. Probably obsolete -->
+		<dependency>
+			<groupId>com.hp.hpl.jena</groupId>
+			<artifactId>jena</artifactId>
+		</dependency>
+		<!-- 
+		<dependency>
+			<groupId>com.hp.hpl.jena</groupId>
+			<artifactId>arq</artifactId>
+			<version>${jena.arq.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>com.hp.hpl.jena</groupId>
+			<artifactId>tdb</artifactId>
+			<version>${jena.tdb.version}</version>
+		</dependency>
+		-->
+		<dependency>
+			<groupId>cml</groupId>
+			<artifactId>jc-top-core</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>cml</groupId>
+			<artifactId>jc-top-templates</artifactId>
+			<version>${project.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>compile</scope>
+		</dependency>
+	
+		<dependency>
+			<groupId>org.mockito</groupId>
+			<artifactId>mockito-core</artifactId>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>${cml.groupId}</groupId>
+			<artifactId>jumbo-testutil</artifactId>
+			<version>${jumbo-testutil.version}</version>
+		</dependency>
+            
 
     </dependencies>
-    <version>0.3-SNAPSHOT</version>
 </project>

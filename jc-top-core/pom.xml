@@ -16,39 +16,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.xml-cml</groupId>
-            <artifactId>jumbo</artifactId>
-            <version>6.1-SNAPSHOT</version>
-        </dependency>
-        <dependency>
-            <groupId>commons-io</groupId>
-            <artifactId>commons-io</artifactId>
-        </dependency>
-        <dependency>
             <groupId>jtidy</groupId>
             <artifactId>jtidy</artifactId>
             <version>${jtidy.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>log4j</groupId>
-            <artifactId>log4j</artifactId>
-            <version>${log4j.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>xom</groupId>
-            <artifactId>xom</artifactId>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.xml-cml</groupId>
-            <artifactId>jumbo-testutil</artifactId>
-            <version>${jumbo-testutil.version}</version>
-            <scope>test</scope>
         </dependency>
 
     </dependencies>

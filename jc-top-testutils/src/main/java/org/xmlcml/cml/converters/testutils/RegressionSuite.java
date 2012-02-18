@@ -1,9 +1,6 @@
 package org.xmlcml.cml.converters.testutils;
 
 import static org.junit.Assert.assertEquals;
-
-
-
 import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 import static org.xmlcml.euclid.EuclidConstants.S_WHITEREGEX;

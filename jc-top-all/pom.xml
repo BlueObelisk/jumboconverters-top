@@ -11,7 +11,7 @@
 
     <artifactId>jc-top-all</artifactId>
     <name>jc-top-all</name>
-    <packaging>pom</packaging>
+    <packaging>${all.packaging}</packaging>
 	
     <dependencies>
         <dependency>
