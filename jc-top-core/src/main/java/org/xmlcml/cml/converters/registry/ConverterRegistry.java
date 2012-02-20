@@ -1,19 +1,18 @@
 package org.xmlcml.cml.converters.registry;
 
 import java.io.InputStream;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Enumeration;
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
+import org.apache.log4j.Logger;
 import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.converters.MimeType;
 
@@ -21,6 +20,7 @@ import org.xmlcml.cml.converters.MimeType;
  * @author Sam Adams
  */
 public class ConverterRegistry {
+	private final static Logger LOG = Logger.getLogger(ConverterRegistry.class);
 
     public static final String META_INF_JUMBO = "META-INF/jumbo-converters";
 
@@ -59,13 +59,12 @@ public class ConverterRegistry {
 	public void createConvertersList() {
 		if (converterList == null) {
 	        converterList = new ArrayList<Converter>();
- 	        System.err.println("new ArrayList:"+this.getClass());
+ 	        LOG.trace("new ArrayList:"+this.getClass());
 			try {
 	            Enumeration<URL> e = classLoader.getResources(META_INF_JUMBO);
 	            List<URL> urlList = Collections.list(e);
-	            System.out.println("urls: "+urlList.size());
 	            for (URL url : urlList) {
-	            	System.out.println(url);
+	            	LOG.trace(url);
 	                InputStream is = url.openStream();
 	                try {
 	                    List<String> lineList = IOUtils.readLines(is);
@@ -75,7 +74,7 @@ public class ConverterRegistry {
 	                }
 	            }
 	        } catch (Exception e) {
-	            System.err.println("Error loading converter files");
+	            LOG.error("Error loading converter files");
 	            e.printStackTrace();
 	        }
 		}
@@ -87,19 +86,16 @@ public class ConverterRegistry {
 		    String convertersName = line.trim();
 		    if (convertersName.length() > 0) {
 		        try {
-		        	System.out.println("Meta-inf Name: "+convertersName);
-		        	System.out.println("CL "+classLoader);
+		        	LOG.trace("Meta-inf Name: "+convertersName+" classLoader "+classLoader);
 		            Class<?> clazz = Class.forName(convertersName);
 		            AbstractConverterModule converterModule = (AbstractConverterModule) clazz.newInstance();
-		            System.out.println("get CL");
 		            List<Converter> newConverterList = converterModule.getConverterList();
-		            System.out.println("converterList");
 		            for (Converter newConverter : newConverterList) {
-		            	System.out.println(newConverter);
+		            	LOG.trace(newConverter);
 		            }
 		            converterList.addAll(newConverterList);
 		        } catch (Exception ex) {
-		            System.err.println("Error loading converter: "+ex);
+		            LOG.error("Error loading converter: "+ex);
 		            ex.printStackTrace();
 		        }
 		    }
@@ -168,7 +164,7 @@ public class ConverterRegistry {
 	        }
 	        list.add(converter);
         } else {
-        	System.out.println("NULL types for "+converter.getClass()+" ("+intype+", "+outtype+")");
+        	LOG.info("NULL types for "+converter.getClass()+" ("+intype+", "+outtype+")");
         }
     }
 
