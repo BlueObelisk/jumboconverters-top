@@ -6,7 +6,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>cml</groupId>
+        <groupId>org.xml-cml.jc</groupId>
         <artifactId>jc-top</artifactId>
         <version>0.3-SNAPSHOT</version>
    </parent>
@@ -20,25 +20,13 @@
 			<groupId>com.hp.hpl.jena</groupId>
 			<artifactId>jena</artifactId>
 		</dependency>
-		<!-- 
 		<dependency>
-			<groupId>com.hp.hpl.jena</groupId>
-			<artifactId>arq</artifactId>
-			<version>${jena.arq.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>com.hp.hpl.jena</groupId>
-			<artifactId>tdb</artifactId>
-			<version>${jena.tdb.version}</version>
-		</dependency>
-		-->
-		<dependency>
-			<groupId>cml</groupId>
+			<groupId>${jc.groupId}</groupId>
 			<artifactId>jc-top-core</artifactId>
 			<version>${project.version}</version>
 		</dependency>
 		<dependency>
-			<groupId>cml</groupId>
+			<groupId>${jc.groupId}</groupId>
 			<artifactId>jc-top-templates</artifactId>
 			<version>${project.version}</version>
 		</dependency>
@@ -54,9 +42,10 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>${cml.groupId}</groupId>
+ 			<groupId>${jumbo.groupId}</groupId>
 			<artifactId>jumbo-testutil</artifactId>
 			<version>${jumbo-testutil.version}</version>
+			<scope>compile</scope>
 		</dependency>
             
 

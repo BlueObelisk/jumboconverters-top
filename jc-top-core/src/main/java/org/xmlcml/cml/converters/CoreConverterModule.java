@@ -1,7 +1,9 @@
 package org.xmlcml.cml.converters;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import org.xmlcml.cml.converters.cml.CMLCommon;
 import org.xmlcml.cml.converters.registry.AbstractConverterModule;
 
 
@@ -15,18 +17,23 @@ public class CoreConverterModule extends AbstractConverterModule {
     }
 
 	public List<MimeType> getMimeTypeList() {
-		// TODO Auto-generated method stub
-		return null;
+		if (mimeTypeList == null) {
+			mimeTypeList = new ArrayList<MimeType>();
+			mimeTypeList.add(CMLCommon.FOO_TYPE);
+		}
+		return mimeTypeList;
 	}
 
 	public List<Converter> getConverterList() {
-		// TODO Auto-generated method stub
-		return null;
+		if (converterList == null) {
+			converterList = new ArrayList<Converter>();
+			converterList.add(new Foo2CMLConverter());
+		}
+		return converterList;
 	}
 
 	public String getPrefix() {
-		// TODO Auto-generated method stub
-		return null;
+		return "test";
 	}
 
 }

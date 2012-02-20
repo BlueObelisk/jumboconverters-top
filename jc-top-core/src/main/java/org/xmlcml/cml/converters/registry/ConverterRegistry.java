@@ -26,49 +26,50 @@ public class ConverterRegistry {
 
     /** create singleton registry
      */
-    private static ConverterRegistry CONVERTER_REGISTRY = new ConverterRegistry();
+    private static ConverterRegistry CONVERTER_REGISTRY = null;
     
-    private Map<TypePair, List<Converter>> converterMap = 
-    		new LinkedHashMap<TypePair, List<Converter>>();
-    private List<Converter> converterList = new ArrayList<Converter>();
-    private Set<MimeType> typeSet = new HashSet<MimeType>();
-    private Map<String, Set<MimeType>> typesBySuffixMap = new HashMap<String, Set<MimeType>>();
+    protected ClassLoader classLoader;
+    protected Map<TypePair, List<Converter>> converterMap = null;
+    protected List<Converter> converterList = null;
+    protected Set<MimeType> typeSet = null;
+    protected Map<String, Set<MimeType>> typesBySuffixMap = null;
 
     public static synchronized ConverterRegistry getDefaultConverterRegistry() {
     	if (CONVERTER_REGISTRY == null) {
-    		CONVERTER_REGISTRY = new ConverterRegistry();
+    		CONVERTER_REGISTRY = new ConverterRegistry(ConverterRegistry.class.getClassLoader());
+//    		CONVERTER_REGISTRY.populateAndRegister();
     	}
     	return CONVERTER_REGISTRY;
     }
-    private ConverterRegistry() {
-        createConvertersList();
-        registerConverters();
+    
+    public ConverterRegistry(ClassLoader classLoader) {
+    	this.classLoader = classLoader;
+    	populateAndRegister();
     }
 
-	private void createConvertersList() {
+    public ConverterRegistry(Class clazz) {
+    	this(clazz.getClassLoader());
+    }
+
+	public void populateAndRegister() {
+		createConvertersList();
+        registerConverters();
+	}
+
+	public void createConvertersList() {
 		if (converterList == null) {
 	        converterList = new ArrayList<Converter>();
+ 	        System.err.println("new ArrayList:"+this.getClass());
 			try {
-	        	ClassLoader ldr = ConverterRegistry.class.getClassLoader();
-	            Enumeration<URL> e = ldr.getResources(META_INF_JUMBO);
-	            for (URL url : Collections.list(e)) {
+	            Enumeration<URL> e = classLoader.getResources(META_INF_JUMBO);
+	            List<URL> urlList = Collections.list(e);
+	            System.out.println("urls: "+urlList.size());
+	            for (URL url : urlList) {
+	            	System.out.println(url);
 	                InputStream is = url.openStream();
 	                try {
-	                    for (String line : IOUtils.readLines(is)) {
-	                        line = stripComments(line);
-	                        String convertersName = line.trim();
-	                        if (convertersName.length() > 0) {
-	                            try {
-	                            	System.out.println("Meta-inf Name: "+convertersName);
-	                                Class<?> clazz = Class.forName(convertersName);
-	                                AbstractConverterModule converterAndTypeLists = (AbstractConverterModule) clazz.newInstance();
-	                                converterList.addAll(converterAndTypeLists.getConverterList());
-	                            } catch (Exception ex) {
-	                                System.err.println("Error loading converter: "+ex);
-	                                ex.printStackTrace();
-	                            }
-	                        }
-	                    }
+	                    List<String> lineList = IOUtils.readLines(is);
+	                    registerModuleClasses(lineList);
 	                } finally {
 	                    IOUtils.closeQuietly(is);
 	                }
@@ -79,8 +80,34 @@ public class ConverterRegistry {
 	        }
 		}
 	}
+
+	private void registerModuleClasses(List<String> lineList) {
+		for (String line : lineList) {
+		    line = stripComments(line);
+		    String convertersName = line.trim();
+		    if (convertersName.length() > 0) {
+		        try {
+		        	System.out.println("Meta-inf Name: "+convertersName);
+		        	System.out.println("CL "+classLoader);
+		            Class<?> clazz = Class.forName(convertersName);
+		            AbstractConverterModule converterModule = (AbstractConverterModule) clazz.newInstance();
+		            System.out.println("get CL");
+		            List<Converter> newConverterList = converterModule.getConverterList();
+		            System.out.println("converterList");
+		            for (Converter newConverter : newConverterList) {
+		            	System.out.println(newConverter);
+		            }
+		            converterList.addAll(newConverterList);
+		        } catch (Exception ex) {
+		            System.err.println("Error loading converter: "+ex);
+		            ex.printStackTrace();
+		        }
+		    }
+		}
+	}
 	
 	private void registerConverters() {
+//		createConvertersList();
         for (Converter converter : converterList) {
         	register(converter);
     		register(converter.getInputType());
@@ -102,12 +129,19 @@ public class ConverterRegistry {
 
 
     public List<Converter> findConverters(String intype, String outtype) {
+    	ensureConverterMap();
         TypePair t = new TypePair(intype, outtype);
         List<Converter> converterList = converterMap.get(t);
         return converterList;
     }
 
-    public Converter findSingleConverter(String intype, String outtype) {
+    private void ensureConverterMap() {
+    	if (converterMap == null) {
+    		converterMap = new HashMap<TypePair, List<Converter>>();
+    	}
+	}
+
+	public Converter findSingleConverter(String intype, String outtype) {
     	List<Converter> converterList = findConverters(intype, outtype);
     	return (converterList == null || converterList.size() != 1) ? null : converterList.get(0);
     }
@@ -122,6 +156,7 @@ public class ConverterRegistry {
     }
 
     private synchronized void register(Converter converter) {
+    	ensureConverterMap();
         MimeType intype = converter.getInputType();
         MimeType outtype = converter.getOutputType();
         if (intype != null && outtype != null) {
@@ -138,6 +173,8 @@ public class ConverterRegistry {
     }
 
     private synchronized void register(MimeType type) {
+    	ensureTypeSet();
+    	ensureTypesBySuffixMap();
     	typeSet.add(type);
     	List<String> extensions = type.getExtensions();
     	for (String extension : extensions) {
@@ -151,15 +188,29 @@ public class ConverterRegistry {
     	}
     }
     
+	private void ensureTypeSet() {
+		if (typeSet == null) {
+			typeSet = new HashSet<MimeType>();
+		}
+	}
+
 	public Set<MimeType> getTypes(String suffix) {
+		ensureTypesBySuffixMap();
 		return typesBySuffixMap.get(suffix);
 	}
     
 	public MimeType getSingleTypeFromSuffix(String suffix) {
+		ensureTypesBySuffixMap();
 		Set<MimeType> types = typesBySuffixMap.get(suffix);
 		return (types != null && types.size() == 1) ? (MimeType) types.toArray()[0] : null;
 	}
 	
+	private void ensureTypesBySuffixMap() {
+		if (typesBySuffixMap == null) {
+			typesBySuffixMap = new  HashMap<String, Set<MimeType>>();
+		}
+	}
+
 	public MimeType getSingleTypeFromFilename(String filename) {
 		int idx = filename.lastIndexOf(".");
 		return (idx == -1) ? null : getSingleTypeFromSuffix(filename.substring(idx+1));
@@ -171,7 +222,9 @@ public class ConverterRegistry {
 	}
 
 	public void add(Converter converter) {
+		createConvertersList();
 		converterList.add(converter);
 	}
+
     
 }

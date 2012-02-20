@@ -27,17 +27,18 @@ public abstract class AbstractConverterModule {
 	private static String DICT_XML = "Dict.xml";
 	private static String NAMESPACE_ROOT = "http://www.xml-cml.org/dict/";
 	
-	protected List<Converter> converterList = new ArrayList<Converter>();
+	protected List<Converter> converterList = null;
 	
 	protected Set<MimeType> typeSet = null;
-	protected List<MimeType> mimeTypeList = new ArrayList<MimeType>();
+	protected List<MimeType> mimeTypeList = null;
 	ModuleResource moduleResource = null;
 
-	/** by default register modules with ConverterRegistry.CONVERTER_REGISTRY
+	/** 
+	 * DONT by default register modules with ConverterRegistry.CONVERTER_REGISTRY
 	 * 
 	 */
 	public AbstractConverterModule() {
-		this(ConverterRegistry.getDefaultConverterRegistry());
+//		this(ConverterRegistry.getDefaultConverterRegistry());
 	}
 	
 	private CMLDictionary dictionary;
@@ -136,6 +137,12 @@ public abstract class AbstractConverterModule {
 				typeSet.add(converter.getInputType());
 				typeSet.add(converter.getOutputType());
 			}
+		}
+	}
+
+	protected void ensureMimeTypeList() {
+		if (mimeTypeList == null) {
+			mimeTypeList = new ArrayList<MimeType>();
 		}
 	}
 

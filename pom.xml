@@ -4,7 +4,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <parent>
-        <groupId>cml</groupId>
+        <groupId>org.xml-cml.jc</groupId>
         <artifactId>jc-parent</artifactId>
         <version>0.3-SNAPSHOT</version>
     </parent>
@@ -43,7 +43,7 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>org.xml-cml</groupId>
+             <groupId>${jumbo.groupId}</groupId>
             <artifactId>jumbo-testutil</artifactId>
             <version>${jumbo-testutil.version}</version>
             <scope>test</scope>

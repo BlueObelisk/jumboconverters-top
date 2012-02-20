@@ -11,8 +11,7 @@ import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.converters.MimeType;
 import org.xmlcml.cml.element.CMLCml;
 
-public class CML2CMLLiteConverter extends AbstractConverter implements
-		Converter {
+public class CML2CMLLiteConverter extends AbstractConverter {
 	private static final Logger LOG = Logger.getLogger(CML2CMLLiteConverter.class);
 	static {
 		LOG.setLevel(Level.INFO);
