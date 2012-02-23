@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.xmlcml.cml.converters.cml.CMLCommon;
-import org.xmlcml.cml.converters.registry.AbstractConverterModule;
 
 
 /**

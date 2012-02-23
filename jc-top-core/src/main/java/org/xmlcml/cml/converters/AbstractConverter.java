@@ -34,7 +34,6 @@ import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
 import org.xmlcml.cml.converters.MimeType.ObjectType;
-import org.xmlcml.cml.converters.registry.AbstractConverterModule;
 
 /**
  * Plumbing and IO wrangling for {@link Converter} classes - allows converter

@@ -1,22 +1,13 @@
-package org.xmlcml.cml.converters.registry;
-
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+package org.xmlcml.cml.converters;
 
 import nu.xom.Element;
-import nu.xom.Elements;
 import nu.xom.Nodes;
 
 import org.xmlcml.cml.base.CMLUtil;
-import org.xmlcml.cml.converters.Converter;
-import org.xmlcml.cml.converters.MimeType;
 import org.xmlcml.euclid.Util;
 
 
-public class ModuleResource {
+public class ModuleResourceOLD {
 	
 	/**
 <resourceList name="nwchem">
@@ -58,7 +49,7 @@ public class ModuleResource {
 	private String prefix;
 	private String namespace;
 
-    public ModuleResource() {
+    public ModuleResourceOLD() {
     }
 
 	protected void createModuleResource() {

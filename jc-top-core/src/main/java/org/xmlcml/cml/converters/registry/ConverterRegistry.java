@@ -13,8 +13,10 @@ import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
+import org.xmlcml.cml.converters.AbstractConverterModule;
 import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.converters.MimeType;
+import org.xmlcml.cml.converters.TypePair;
 
 /**
  * @author Sam Adams
@@ -29,10 +31,13 @@ public class ConverterRegistry {
     private static ConverterRegistry CONVERTER_REGISTRY = null;
     
     protected ClassLoader classLoader;
+    protected List<AbstractConverterModule> moduleList = null;
     protected Map<TypePair, List<Converter>> converterMap = null;
     protected List<Converter> converterList = null;
     protected Set<MimeType> typeSet = null;
     protected Map<String, Set<MimeType>> typesBySuffixMap = null;
+
+	private List<Converter> totalConverterList = new ArrayList<Converter>();
 
     public static synchronized ConverterRegistry getDefaultConverterRegistry() {
     	if (CONVERTER_REGISTRY == null) {
@@ -53,22 +58,20 @@ public class ConverterRegistry {
 
 	public void populateAndRegister() {
 		createConvertersList();
-        registerConverters();
+        registerConvertersAndMimeTypes();
 	}
 
-	public void createConvertersList() {
-		if (converterList == null) {
-	        converterList = new ArrayList<Converter>();
- 	        LOG.trace("new ArrayList:"+this.getClass());
+	public List<AbstractConverterModule> createModuleList() {
+		if (moduleList == null) {
+	        moduleList = new ArrayList<AbstractConverterModule>();
 			try {
 	            Enumeration<URL> e = classLoader.getResources(META_INF_JUMBO);
 	            List<URL> urlList = Collections.list(e);
 	            for (URL url : urlList) {
-	            	LOG.trace(url);
 	                InputStream is = url.openStream();
 	                try {
-	                    List<String> lineList = IOUtils.readLines(is);
-	                    registerModuleClasses(lineList);
+	                    List<String> moduleNameList = IOUtils.readLines(is);
+	                    getModuleList(moduleNameList, url);
 	                } finally {
 	                    IOUtils.closeQuietly(is);
 	                }
@@ -78,32 +81,39 @@ public class ConverterRegistry {
 	            e.printStackTrace();
 	        }
 		}
+		return moduleList;
 	}
 
-	private void registerModuleClasses(List<String> lineList) {
-		for (String line : lineList) {
+	private void getModuleList(List<String> moduleNameList, URL url) {
+		for (String line : moduleNameList) {
 		    line = stripComments(line);
-		    String convertersName = line.trim();
-		    if (convertersName.length() > 0) {
+		    String moduleName = line.trim();
+		    if (moduleName.length() > 0) {
 		        try {
-		        	LOG.trace("Meta-inf Name: "+convertersName+" classLoader "+classLoader);
-		            Class<?> clazz = Class.forName(convertersName);
+		        	LOG.trace("Meta-inf Name: "+moduleName+" in "+url);
+		            Class<?> clazz = Class.forName(moduleName);
 		            AbstractConverterModule converterModule = (AbstractConverterModule) clazz.newInstance();
-		            List<Converter> newConverterList = converterModule.getConverterList();
-		            for (Converter newConverter : newConverterList) {
-		            	LOG.trace(newConverter);
-		            }
-		            converterList.addAll(newConverterList);
+		            moduleList.add(converterModule);
 		        } catch (Exception ex) {
-		            LOG.error("Error loading converter: "+ex);
-		            ex.printStackTrace();
+		            System.err.println("Error loading converter: "+ex+" in "+url);
 		        }
 		    }
 		}
 	}
 	
-	private void registerConverters() {
-//		createConvertersList();
+	public List<Converter> createConvertersList() {
+		if (converterList == null) {
+	        converterList = new ArrayList<Converter>();
+	        createModuleList();
+	        for (AbstractConverterModule module : moduleList) {
+	        	List<Converter> moduleConverterList = module.getConverterList(); 
+	        	converterList.addAll(moduleConverterList);
+	        }
+		}
+		return converterList;
+	}
+
+	private void registerConvertersAndMimeTypes() {
         for (Converter converter : converterList) {
         	register(converter);
     		register(converter.getInputType());

@@ -7,7 +7,7 @@ import nu.xom.Nodes;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
-import org.xmlcml.cml.converters.registry.AbstractConverterModule;
+import org.xmlcml.cml.converters.AbstractConverterModule;
 import org.xmlcml.cml.element.CMLProperty;
 
 /** abstract class for RawXML2CML conversion.

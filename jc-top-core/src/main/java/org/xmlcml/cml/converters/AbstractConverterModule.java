@@ -1,4 +1,5 @@
-package org.xmlcml.cml.converters.registry;
+package org.xmlcml.cml.converters;
+
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -12,8 +13,7 @@ import org.apache.log4j.Logger;
 import org.xmlcml.cml.attribute.DictRefAttribute;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
-import org.xmlcml.cml.converters.Converter;
-import org.xmlcml.cml.converters.MimeType;
+import org.xmlcml.cml.converters.registry.ConverterRegistry;
 import org.xmlcml.cml.element.CMLDictionary;
 import org.xmlcml.cml.tools.DictionaryTool;
 import org.xmlcml.euclid.Util;
@@ -31,7 +31,7 @@ public abstract class AbstractConverterModule {
 	
 	protected Set<MimeType> typeSet = null;
 	protected List<MimeType> mimeTypeList = null;
-	ModuleResource moduleResource = null;
+	ModuleResourceOLD moduleResource = null;
 
 	/** 
 	 * DONT by default register modules with ConverterRegistry.CONVERTER_REGISTRY

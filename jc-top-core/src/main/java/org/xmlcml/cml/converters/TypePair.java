@@ -1,6 +1,5 @@
-package org.xmlcml.cml.converters.registry;
+package org.xmlcml.cml.converters;
 
-import org.xmlcml.cml.converters.MimeType;
 import org.xmlcml.euclid.Util;
 
 public class TypePair {

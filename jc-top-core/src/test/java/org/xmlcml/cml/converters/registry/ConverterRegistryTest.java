@@ -11,6 +11,7 @@ import org.junit.Assert;
 import org.junit.Test;
 import org.xmlcml.cml.converters.Converter;
 import org.xmlcml.cml.converters.MimeType;
+import org.xmlcml.cml.converters.TypePair;
 import org.xmlcml.cml.converters.cml.CML2CMLLiteConverter;
 import org.xmlcml.cml.converters.cml.CMLCommon;
 

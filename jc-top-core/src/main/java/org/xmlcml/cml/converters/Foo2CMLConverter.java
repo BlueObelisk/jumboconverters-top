@@ -1,19 +1,10 @@
 package org.xmlcml.cml.converters;
 
-import java.io.File;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.util.List;
-
 import nu.xom.Element;
 
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.base.CMLBuilder;
-import org.xmlcml.cml.base.CMLElement;
-import org.xmlcml.cml.converters.cml.CML2CMLLiteConverter;
 import org.xmlcml.cml.converters.cml.CMLCommon;
-import org.xmlcml.cml.converters.cml.CMLLiteHelper;
 import org.xmlcml.cml.element.CMLCml;
 
 /** dummy class
