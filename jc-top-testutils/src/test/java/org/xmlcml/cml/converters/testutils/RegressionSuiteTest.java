@@ -28,7 +28,7 @@ public class RegressionSuiteTest {
 
    @Test
    public void testFilesCalculatedProperly() {
-      RegressionSuite rs = new RegressionSuite();
+      JumboConvertersRegressionSuite rs = new JumboConvertersRegressionSuite();
       rs.setLocalDirName("cdx");
       Assert.assertEquals(absPath("src/test/resources/cdx/in"),
                           absPath(rs.getStartDir()));
@@ -40,7 +40,7 @@ public class RegressionSuiteTest {
 
    @Test
    public void testOutputAndReferenceFileCalculatedProperly() {
-      RegressionSuite rs = new RegressionSuite();
+      JumboConvertersRegressionSuite rs = new JumboConvertersRegressionSuite();
       rs.setLocalDirName("cdx");
       rs.setOutputSuffix("cml");
       final File inputFile = new File("src/test/resources/cdx/in/foo.cdx");
@@ -61,7 +61,7 @@ public class RegressionSuiteTest {
 
    @Test
    public void outputAndReferenceFileCalculatedProperlyWithDoubleSuffixInput() {
-      RegressionSuite rs = new RegressionSuite();
+      JumboConvertersRegressionSuite rs = new JumboConvertersRegressionSuite();
       rs.setLocalDirName("foo");
       rs.setInputSuffix("cml.xml");
       rs.setOutputSuffix("bar");
@@ -76,7 +76,7 @@ public class RegressionSuiteTest {
 
    @Test
    public void testConversionsAndComparisonsPerformed() {
-      RegressionSuite rs = new RegressionSuite();
+      JumboConvertersRegressionSuite rs = new JumboConvertersRegressionSuite();
       rs.setLocalDirName("regressionSuite");
       rs.setOutputSuffix("cml");
       rs.setInputSuffix("cdx");
@@ -96,7 +96,7 @@ public class RegressionSuiteTest {
 
    @Test
    public void testConversionsAndComparisonsPerformedFails() {
-      RegressionSuite rs = new RegressionSuite();
+      JumboConvertersRegressionSuite rs = new JumboConvertersRegressionSuite();
       rs.setLocalDirName("regressionSuite2");
       rs.setOutputSuffix("txt");
       rs.setInputSuffix("txt");

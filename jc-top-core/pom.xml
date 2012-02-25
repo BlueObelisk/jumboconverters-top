@@ -12,13 +12,11 @@
 
     <artifactId>jc-top-core</artifactId>
     <name>jc-top-core</name>
-    <version>0.3-SNAPSHOT</version>
-
+    
     <dependencies>
         <dependency>
             <groupId>jtidy</groupId>
             <artifactId>jtidy</artifactId>
-            <version>${jtidy.version}</version>
         </dependency>
 
     </dependencies>

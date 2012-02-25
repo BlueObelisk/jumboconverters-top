@@ -33,7 +33,6 @@
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
-			<scope>compile</scope>
 		</dependency>
 	
 		<dependency>
@@ -44,7 +43,6 @@
 		<dependency>
  			<groupId>${jumbo.groupId}</groupId>
 			<artifactId>jumbo-testutil</artifactId>
-			<version>${jumbo-testutil.version}</version>
 			<scope>compile</scope>
 		</dependency>
             

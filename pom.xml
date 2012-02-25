@@ -45,7 +45,6 @@
         <dependency>
              <groupId>${jumbo.groupId}</groupId>
             <artifactId>jumbo-testutil</artifactId>
-            <version>${jumbo-testutil.version}</version>
             <scope>test</scope>
         </dependency>
 

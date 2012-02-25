@@ -35,9 +35,9 @@ import com.hp.hpl.jena.rdf.model.RDFNode;
 import com.hp.hpl.jena.rdf.model.Resource;
 import com.hp.hpl.jena.rdf.model.Statement;
 
-public class RegressionSuite {
+public class JumboConvertersRegressionSuite {
 
-	static Logger LOG = Logger.getLogger(RegressionSuite.class);
+	static Logger LOG = Logger.getLogger(JumboConvertersRegressionSuite.class);
 	static String OUTPUT_DIR_ROOT_NAME = "target/test";
 	private final static File TEST_RESOURCES = new File("src/test/resources");
 	static String DIRECTORY = "_DIR";
@@ -49,7 +49,7 @@ public class RegressionSuite {
 
 	public static void run(String localDirName, String inputSuffix,
 			String outputSuffix, Converter converter, boolean normalizeWhite) {
-		RegressionSuite rs = new RegressionSuite();
+		JumboConvertersRegressionSuite rs = new JumboConvertersRegressionSuite();
 		rs.setLocalDirName(localDirName);
 		rs.setInputSuffix(inputSuffix);
 		rs.setOutputSuffix(outputSuffix);
