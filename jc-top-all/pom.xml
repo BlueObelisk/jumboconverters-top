@@ -24,11 +24,6 @@
             <artifactId>jc-top-testutils</artifactId>
             <version>${project.version}</version>
         </dependency>
-        <dependency>
-            <groupId>${jc.groupId}</groupId>
-            <artifactId>jc-top-templates</artifactId>
-            <version>${project.version}</version>
-        </dependency>
     </dependencies>
 
 </project>

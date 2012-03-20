@@ -1,4 +1,4 @@
-package org.xmlcml.cml.converters.registry;
+package org.xmlcml.cml.converters;
 
 import java.io.InputStream;
 import java.net.URL;
@@ -13,10 +13,6 @@ import java.util.Set;
 
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
-import org.xmlcml.cml.converters.AbstractConverterModule;
-import org.xmlcml.cml.converters.Converter;
-import org.xmlcml.cml.converters.MimeType;
-import org.xmlcml.cml.converters.TypePair;
 
 /**
  * @author Sam Adams

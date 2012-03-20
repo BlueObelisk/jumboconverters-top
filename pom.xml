@@ -23,7 +23,6 @@
     <modules>
         <module>jc-top-all</module>
         <module>jc-top-core</module>
-        <module>jc-top-templates</module>
         <module>jc-top-testutils</module>
     </modules>
 

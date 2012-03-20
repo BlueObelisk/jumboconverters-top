@@ -1,4 +1,4 @@
-package org.xmlcml.cml.converters;
+package org.xmlcml.cml.converters.util;
 
 import java.io.IOException;
 import java.io.StringReader;
@@ -11,6 +11,7 @@ import nu.xom.Nodes;
 import org.xmlcml.cml.base.CMLConstants;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.base.CMLUtil;
+import org.xmlcml.cml.converters.AbstractConverter;
 import org.xmlcml.cml.element.CMLAngle;
 import org.xmlcml.cml.element.CMLCml;
 import org.xmlcml.cml.element.CMLLength;
