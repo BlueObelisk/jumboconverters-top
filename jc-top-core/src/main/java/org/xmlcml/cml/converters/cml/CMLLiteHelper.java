@@ -33,6 +33,7 @@ import org.xmlcml.cml.tools.BondTool;
 
 public class CMLLiteHelper {
 
+	private static final String REPLACEABLE_CHARS = "[&^%$�\"!(),;'/#~=+*{}\\[\\]]";
 	private static final Logger LOG = Logger.getLogger(CMLLiteHelper.class);
 	private static Set<Class<? extends CMLElement>> cmlLiteClassSet = new HashSet<Class<? extends CMLElement>>(); 
 	static {
@@ -122,7 +123,7 @@ public class CMLLiteHelper {
 
 	private void normalizeId(Attribute idAtt) {
 		String value = idAtt.getValue();
-		value = value.replaceAll("[&^%$�\"!(),;'/#~=+*{}\\[\\]]", "_");
+		value = value.replaceAll(REPLACEABLE_CHARS, CMLConstants.S_UNDER);
 		idAtt.setValue(value);
 	}
 	
