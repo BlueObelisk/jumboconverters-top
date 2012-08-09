@@ -64,6 +64,7 @@ public class ConverterRegistry {
 	            Enumeration<URL> e = classLoader.getResources(META_INF_JUMBO);
 	            List<URL> urlList = Collections.list(e);
 	            for (URL url : urlList) {
+	                LOG.trace("createModuleList processing URL: "+url.toString());
 	                InputStream is = url.openStream();
 	                try {
 	                    List<String> moduleNameList = IOUtils.readLines(is);
@@ -111,6 +112,7 @@ public class ConverterRegistry {
 
 	private void registerConvertersAndMimeTypes() {
         for (Converter converter : converterList) {
+            LOG.debug("REGISTERING CONVERTER: "+converter.toString());
         	register(converter);
     		register(converter.getInputType());
     		register(converter.getOutputType());
@@ -131,7 +133,8 @@ public class ConverterRegistry {
 
 
     public List<Converter> findConverters(String intype, String outtype) {
-    	ensureConverterMap();
+        
+        ensureConverterMap();
         TypePair t = new TypePair(intype, outtype);
         List<Converter> converterList = converterMap.get(t);
         return converterList;
@@ -175,19 +178,19 @@ public class ConverterRegistry {
     }
 
     private synchronized void register(MimeType type) {
-    	ensureTypeSet();
-    	ensureTypesBySuffixMap();
-    	typeSet.add(type);
-    	List<String> extensions = type.getExtensions();
-    	for (String extension : extensions) {
-    		Set<MimeType> types = typesBySuffixMap.get(extension);
-    		if (types == null) {
-    			types = new HashSet<MimeType>();
-    			typesBySuffixMap.put(extension, types);
-    		}
-//    		System.out.println("TYPE "+types);
-    		types.add(type);
-    	}
+        ensureTypeSet();
+        ensureTypesBySuffixMap();
+        typeSet.add(type);
+        List<String> extensions = type.getExtensions();
+        for (String extension : extensions) {
+            Set<MimeType> types = typesBySuffixMap.get(extension);
+            if (types == null) {
+                types = new HashSet<MimeType>();
+                typesBySuffixMap.put(extension, types);
+            }
+            // System.out.println("TYPE "+types);
+            types.add(type);
+        }
     }
     
 	private void ensureTypeSet() {
@@ -202,8 +205,7 @@ public class ConverterRegistry {
 	}
     
 	public MimeType getSingleTypeFromSuffix(String suffix) {
-		ensureTypesBySuffixMap();
-		Set<MimeType> types = typesBySuffixMap.get(suffix);
+		Set<MimeType> types = getTypes(suffix);
 		return (types != null && types.size() == 1) ? (MimeType) types.toArray()[0] : null;
 	}
 	
